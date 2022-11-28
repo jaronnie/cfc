@@ -9,7 +9,7 @@ But also you can use cfctl to get value in command line or shell scripts...
 ## import package
 
 ```shell
-import "git.hyperchain.cn/niejian/cfc"
+import "github.com/jaronnie/cfc"
 ```
 
 ## how to use cfc package
@@ -19,7 +19,7 @@ import "git.hyperchain.cn/niejian/cfc"
 ## download cfctl
 
 ```shell
-go install git.hyperchain.cn/niejian/cfc/cmd/cfctl@master
+go install github.com/jaronnie/cfc/cmd/cfctl@master
 ```
 
 ## how to use cfctl
