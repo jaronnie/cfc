@@ -1,0 +1,3 @@
+#!/bin/sh
+./script/goimports.sh
+git add .
