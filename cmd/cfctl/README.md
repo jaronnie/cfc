@@ -60,3 +60,4 @@ cfctl append key.0.name '{"xx":"value2"}' -f _example/test.json
 - [x] set_objects
 - [x] get
 - [x] append
+- [x] del

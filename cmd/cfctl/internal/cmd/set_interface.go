@@ -5,27 +5,12 @@ import (
 
 	"github.com/spf13/cast"
 	"github.com/spf13/viper"
-
-	"github.com/jaronnie/cfc/cmd/cfctl/internal/extend/viperEx"
 )
 
 func setInterface(key string, castValue interface{}) error {
 	// Determine whether to set index value
 	if isSetIndexValue(key) {
-		// set index value
-		// see https://github.com/spf13/viper/issues/1140
-		// use extend/viperEx supported by https://github.com/fluffy-bunny/viperEx
-		allSettings := viper.AllSettings()
-		myViperEx, err := viperEx.New(allSettings, func(ve *viperEx.ViperEx) error {
-			return nil
-		})
-		if err != nil {
-			return err
-		}
-		if err = myViperEx.UpdateDeepPath(key, castValue); err != nil {
-			return err
-		}
-		if err = myViperEx.Unmarshal(&allSettings); err != nil {
+		if err := viper.SetIndex(key, castValue); err != nil {
 			return err
 		}
 	} else {

@@ -19,7 +19,18 @@ var delCmd = &cobra.Command{
 }
 
 func del(cmd *cobra.Command, args []string) error {
-	return viper.UnSet()
+	cmd.SilenceUsage = true
+	if len(args) == 0 {
+		return EmptyKey
+	}
+
+	key := args[0]
+
+	viper.UnSet(key)
+	if err := viper.WriteConfigAs(ConfigFile); err != nil {
+		return err
+	}
+	return nil
 }
 
 func init() {
