@@ -48,6 +48,14 @@ cfctl append key '{"name":"value2"}' -f _example/test.json
 cfctl append key.0.name '{"xx":"value2"}' -f _example/test.json
 ```
 
+### del
+
+```shell
+cfctl del nj -f _example/test.toml
+cfctl del nj.jaronnie.name -f _example/test.toml
+cfctl del array.0 -f _example/test.json
+```
+
 ## todo
 - [x] set_string
 - [x] set_int
