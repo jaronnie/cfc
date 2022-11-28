@@ -19,7 +19,7 @@ import "github.com/jaronnie/cfc"
 ## download cfctl
 
 ```shell
-go install github.com/jaronnie/cfc/cmd/cfctl@master
+go install github.com/jaronnie/cfc/cmd/cfctl@latest
 ```
 
 ## how to use cfctl
