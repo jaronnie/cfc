@@ -38,16 +38,29 @@ func appendEx(cmd *cobra.Command, args []string) error {
 					"\nYou should use set_strings or set_ints or set_floats or set_objects to initialize")
 			}
 
+			var castValue interface{}
+			var err error
+
 			switch v[0].(type) {
 			case string:
-				v = append(v, cast.ToString(value))
+				if castValue, err = cast.ToStringE(value); err != nil {
+					return err
+				}
 			case int64:
-				v = append(v, cast.ToInt64(value))
+				if castValue, err = cast.ToInt64E(value); err != nil {
+					return err
+				}
 			case float64:
-				v = append(v, cast.ToFloat64(value))
+				if castValue, err = cast.ToFloat64E(value); err != nil {
+					return err
+				}
 			case map[string]interface{}:
-				v = append(v, cast.ToStringMap(value))
+				if castValue, err = cast.ToStringMapE(value); err != nil {
+					return err
+				}
 			}
+
+			v = append(v, castValue)
 
 			if err := setInterface(key, v); err != nil {
 				return err

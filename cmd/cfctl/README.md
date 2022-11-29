@@ -22,6 +22,10 @@ Use cfctl -h to get all usage.
 cfctl get key -f test.toml
 cfctl get key.0 -f test.toml
 cfctl get a.b.c -f test.toml
+
+# specify output, may unmarshal error
+cfctl get "*" -f test.toml -o yaml
+cfctl get x.y -f test.toml -o json
 ```
 
 ### set
