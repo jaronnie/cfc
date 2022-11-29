@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/spf13/cobra v1.6.1
-	github.com/spf13/viper v1.14.0
+	github.com/spf13/viper v1.15.0
 )
 
 require (
@@ -32,4 +32,4 @@ require (
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
 
-replace github.com/spf13/viper v1.14.0 => ./third/viper
+replace github.com/spf13/viper v1.15.0 => github.com/jaronnie/viper v1.15.0
