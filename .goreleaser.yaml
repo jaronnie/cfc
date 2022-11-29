@@ -16,6 +16,7 @@ builds:
         - linux
         - windows
         - darwin
+      id: cfctl
       main: ./cmd/cfctl
 changelog:
     filters:
