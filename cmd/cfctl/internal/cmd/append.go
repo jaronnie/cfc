@@ -16,7 +16,7 @@ import (
 var appendCmd = &cobra.Command{
 	Use:   "append",
 	Short: "append config key returns value",
-	Long:  `append config key returns value.`,
+	Long:  `append config key, the key value must by array.`,
 	RunE:  appendEx,
 }
 

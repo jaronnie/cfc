@@ -19,9 +19,9 @@ var (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "cfc",
-	Short: "cfc means config customize",
-	Long:  `cfc means config customize.`,
+	Use:   "cfctl",
+	Short: "cfctl means config customize by command line",
+	Long:  `cfctl means config customize by command line.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },

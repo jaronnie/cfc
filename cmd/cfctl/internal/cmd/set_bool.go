@@ -20,8 +20,8 @@ var (
 // setBoolCmd represents the set_bool command
 var setBoolCmd = &cobra.Command{
 	Use:   "set_bool",
-	Short: "set_bool config key",
-	Long:  `set_bool config key.`,
+	Short: "set_bool config key with bool type",
+	Long:  `set_bool config key with bool type.`,
 	RunE:  setBool,
 }
 

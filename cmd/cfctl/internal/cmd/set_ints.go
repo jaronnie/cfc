@@ -21,8 +21,8 @@ var (
 // setIntsCmd represents the set_ints command
 var setIntsCmd = &cobra.Command{
 	Use:   "set_ints",
-	Short: "set_ints config key",
-	Long:  `set_ints config key.`,
+	Short: "set_ints config key with int array type",
+	Long:  `set_ints config key with int array type.`,
 	RunE:  setInts,
 }
 

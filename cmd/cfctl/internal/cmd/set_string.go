@@ -20,8 +20,8 @@ var (
 // setStringCmd represents the set command
 var setStringCmd = &cobra.Command{
 	Use:   "set_string",
-	Short: "set_string config key",
-	Long:  `set_String config key.`,
+	Short: "set_string config key with string type",
+	Long:  `set_String config key with string type.`,
 	RunE:  setString,
 }
 

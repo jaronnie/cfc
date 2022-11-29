@@ -20,8 +20,8 @@ var (
 // setFloatCmd represents the set_float command
 var setFloatCmd = &cobra.Command{
 	Use:   "set_float",
-	Short: "set_float config key",
-	Long:  `set_float config key.`,
+	Short: "set_float config key with float type",
+	Long:  `set_float config key with float type.`,
 	RunE:  setFloat,
 }
 

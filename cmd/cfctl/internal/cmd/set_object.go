@@ -20,8 +20,8 @@ var (
 // setObjectCmd represents the set_object command
 var setObjectCmd = &cobra.Command{
 	Use:   "set_object",
-	Short: "set_object config key",
-	Long:  `set_object config key.`,
+	Short: "set_object config key with object type",
+	Long:  `set_object config key with object type.`,
 	RunE:  setObject,
 }
 

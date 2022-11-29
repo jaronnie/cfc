@@ -13,8 +13,8 @@ import (
 // delCmd represents the del command
 var delCmd = &cobra.Command{
 	Use:   "del",
-	Short: "del config key returns value",
-	Long:  `del config key returns value.`,
+	Short: "del config key",
+	Long:  `del config key.`,
 	RunE:  del,
 }
 
