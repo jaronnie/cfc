@@ -18,6 +18,7 @@ builds:
         - darwin
       id: cfctl
       main: ./cmd/cfctl
+      binary: cfctl
 changelog:
     filters:
         exclude:
