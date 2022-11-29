@@ -9,6 +9,9 @@ import (
 	"github.com/jaronnie/cfc/cmd/cfctl/internal/cmd"
 )
 
+var version string
+
 func main() {
+	cmd.Version = version
 	cmd.Execute()
 }

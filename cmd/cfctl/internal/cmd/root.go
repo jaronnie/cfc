@@ -53,6 +53,10 @@ func init() {
 }
 
 func initConfig() {
+	if os.Args[1] == versionCmd.Name() {
+		return
+	}
+
 	if ConfigFile != "" {
 		viper.SetConfigFile(ConfigFile)
 		if err := viper.ReadInConfig(); err != nil {

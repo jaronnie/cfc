@@ -18,9 +18,7 @@ import "github.com/jaronnie/cfc"
 
 ## download cfctl
 
-```shell
-go install github.com/jaronnie/cfc/cmd/cfctl@latest
-```
+[release](https://github.com/jaronnie/cfc/releases)
 
 ## how to use cfctl
 
