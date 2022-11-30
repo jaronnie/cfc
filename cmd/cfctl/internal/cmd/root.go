@@ -6,8 +6,13 @@ Copyright © 2022 jaronnie jaron@jaronnie.com
 package cmd
 
 import (
+	"bytes"
+	"fmt"
+	"io"
 	"os"
+	"path/filepath"
 
+	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -15,6 +20,10 @@ import (
 var (
 	ConfigFile string
 	FileType   string // only when used pipe mode will be used
+)
+
+var (
+	TryReadConfigErr = errors.New("Error: try to read config while empty config type with viper supported config type")
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -49,7 +58,7 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.PersistentFlags().StringVarP(&ConfigFile, "config", "f", "", "config file path")
-	rootCmd.PersistentFlags().StringVarP(&FileType, "type", "p", "toml", "only take effect reading from pipeline, default toml type")
+	rootCmd.PersistentFlags().StringVarP(&FileType, "type", "p", "", "specify config file type")
 }
 
 func initConfig() {
@@ -57,15 +66,56 @@ func initConfig() {
 		return
 	}
 
-	if ConfigFile != "" {
+	if err := tryReadConfig(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+func tryReadConfig() (err error) {
+	switch {
+	case ConfigFile != "" && filepath.Ext(ConfigFile) != "":
 		viper.SetConfigFile(ConfigFile)
-		if err := viper.ReadInConfig(); err != nil {
-			panic(err)
-		}
-	} else if os.Stdin != nil {
+		return viper.ReadInConfig()
+	case ConfigFile != "" && filepath.Ext(ConfigFile) == "" && FileType != "":
+		viper.SetConfigFile(ConfigFile)
 		viper.SetConfigType(FileType)
-		if err := viper.ReadConfig(os.Stdin); err != nil {
-			panic(err)
+		return viper.ReadInConfig()
+	case ConfigFile != "" && filepath.Ext(ConfigFile) == "" && FileType == "":
+		viper.SetConfigFile(ConfigFile)
+		// try set config type
+		for _, v := range viper.SupportedExts {
+			viper.SetConfigType(v)
+			if err = viper.ReadInConfig(); err == nil {
+				return nil
+			}
+		}
+		return TryReadConfigErr
+	}
+
+	// os stdin
+	if stat, err := os.Stdin.Stat(); err != nil {
+		return err
+	} else if stat.Size() == 0 {
+		return errors.Errorf("please specify config file or set os stdin")
+	}
+
+	// read stdin bytes
+	stdinBytes, err := io.ReadAll(os.Stdin)
+	if err != nil {
+		return err
+	}
+
+	if FileType != "" {
+		viper.SetConfigType(FileType)
+		return viper.ReadConfig(bytes.NewBuffer(stdinBytes))
+	}
+
+	for _, v := range viper.SupportedExts {
+		viper.SetConfigType(v)
+		if err = viper.ReadConfig(bytes.NewBuffer(stdinBytes)); err == nil {
+			return nil
 		}
 	}
+	return TryReadConfigErr
 }
