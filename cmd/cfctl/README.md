@@ -26,6 +26,10 @@ cfctl get a.b.c -f test.toml
 # specify output, may unmarshal error
 cfctl get "*" -f test.toml -o yaml
 cfctl get x.y -f test.toml -o json
+
+# read from stdin
+cat test.toml | cfctl get key
+cat test.toml | cfctl get key -p toml
 ```
 
 ### set

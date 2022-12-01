@@ -27,8 +27,10 @@ cfctl get name -f test.toml
 
 cfctl set_string name value -f test.toml
 
-# default config file type is toml, if others please use -p to specify config file type
+# if you do not set config type, we will try to set config type.
+# if you have been setting config type, we will use it!
 cat test.toml | cfctl get name
+cat test.toml | cfctl get name -p toml
 ```
 
 if you want to get more about cfctl, [click here](cmd/cfctl/README.md)
