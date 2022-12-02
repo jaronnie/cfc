@@ -16,6 +16,15 @@ Support config type which is supported by viper.
 
 Use cfctl -h to get all usage.
 
+### auto complete command
+
+```shell
+cfctl completion zsh
+cfctl completion bash
+cfctl completion fish
+cfctl completion powershell
+```
+
 ### get
 
 ```shell

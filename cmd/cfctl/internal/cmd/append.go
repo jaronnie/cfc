@@ -28,6 +28,10 @@ func appendEx(cmd *cobra.Command, args []string) error {
 	key := args[0]
 	value := args[1]
 
+	if err := tryReadConfig(); err != nil {
+		return err
+	}
+
 	if b := viper.IsSet(key); b {
 		getValue := viper.Get(key)
 		switch v := getValue.(type) {

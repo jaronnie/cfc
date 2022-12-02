@@ -34,6 +34,10 @@ func setFloat(cmd *cobra.Command, args []string) error {
 	key := args[0]
 	value := args[1]
 
+	if err := tryReadConfig(); err != nil {
+		return err
+	}
+
 	castValue, err := cast.ToFloat64E(value)
 	if err != nil {
 		return err

@@ -34,6 +34,10 @@ func setObject(cmd *cobra.Command, args []string) error {
 	key := args[0]
 	value := args[1]
 
+	if err := tryReadConfig(); err != nil {
+		return err
+	}
+
 	castValue, err := cast.ToStringMapE(value)
 	if err != nil {
 		return err

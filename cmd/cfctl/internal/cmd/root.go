@@ -7,7 +7,6 @@ package cmd
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -20,10 +19,6 @@ import (
 var (
 	ConfigFile string
 	FileType   string // only when used pipe mode will be used
-)
-
-var (
-	TryReadConfigErr = errors.New("Error: try to read config while empty config type with viper supported config type")
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -46,8 +41,6 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
-
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
@@ -59,17 +52,6 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.PersistentFlags().StringVarP(&ConfigFile, "config", "f", "", "config file path")
 	rootCmd.PersistentFlags().StringVarP(&FileType, "type", "p", "", "specify config file type")
-}
-
-func initConfig() {
-	if os.Args[1] == versionCmd.Name() {
-		return
-	}
-
-	if err := tryReadConfig(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
 }
 
 func tryReadConfig() (err error) {
@@ -90,7 +72,7 @@ func tryReadConfig() (err error) {
 				return nil
 			}
 		}
-		return TryReadConfigErr
+		return err
 	}
 
 	// os stdin
@@ -117,5 +99,5 @@ func tryReadConfig() (err error) {
 			return nil
 		}
 	}
-	return TryReadConfigErr
+	return err
 }

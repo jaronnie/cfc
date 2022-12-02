@@ -47,6 +47,10 @@ func get(cmd *cobra.Command, args []string) error {
 
 	var value interface{}
 
+	if err := tryReadConfig(); err != nil {
+		return err
+	}
+
 	if key == "*" {
 		value = viper.AllSettings()
 	} else {

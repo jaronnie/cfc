@@ -26,6 +26,10 @@ func del(cmd *cobra.Command, args []string) error {
 
 	key := args[0]
 
+	if err := tryReadConfig(); err != nil {
+		return err
+	}
+
 	viper.UnSet(key)
 	if err := viper.WriteConfigAs(ConfigFile); err != nil {
 		return err

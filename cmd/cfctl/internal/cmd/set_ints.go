@@ -35,6 +35,10 @@ func setInts(cmd *cobra.Command, args []string) error {
 	key := args[0]
 	value := args[1]
 
+	if err := tryReadConfig(); err != nil {
+		return err
+	}
+
 	value = strings.ReplaceAll(value, " ", "")
 
 	split := strings.Split(value, ",")
