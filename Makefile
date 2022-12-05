@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	@cd cmd/cfctl; go install
+	@go install github.com/jaronnie/cfc/cmd/cfctl
 
 .PHONY: fmt.all
 fmt.all:
