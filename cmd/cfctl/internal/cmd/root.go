@@ -11,7 +11,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -75,12 +74,13 @@ func tryReadConfig() (err error) {
 		return err
 	}
 
-	// os stdin
-	if stat, err := os.Stdin.Stat(); err != nil {
-		return err
-	} else if stat.Size() == 0 {
-		return errors.Errorf("please specify config file or set os stdin")
-	}
+	//// os stdin
+	//if stat, err := os.Stdin.Stat(); err != nil {
+	//	return err
+	//} else if stat.Size() == 0 {
+	//	fmt.Println(stat)
+	//	return errors.Errorf("please specify config file or set os stdin")
+	//}
 
 	// read stdin bytes
 	stdinBytes, err := io.ReadAll(os.Stdin)
