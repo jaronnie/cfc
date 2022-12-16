@@ -17,6 +17,6 @@ func TestGetOuterKeys(t *testing.T) {
 		return
 	}
 
-	keys := getOuterKeys("spec.sp")
+	keys := getOuterKeys("spec.template.alliancechaininfo.machines.0.nodes")
 	fmt.Println(keys)
 }

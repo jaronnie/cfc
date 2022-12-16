@@ -107,10 +107,27 @@ func getOuterKeys(key string) []string {
 		completeCount = 1
 	}
 
-	for _, v := range viper.AllKeys() {
-		split := strings.Split(v, ".")
-		if len(split) >= completeCount {
-			outerKeys = append(outerKeys, strings.Join(split[0:completeCount], "."))
+	trimLastDelimiter := strings.TrimRight(key, ".")
+
+	if isSetIndexValue(trimLastDelimiter) {
+		v := viper.Sub(trimLastDelimiter)
+
+		splitKey := strings.Split(trimLastDelimiter, ".")
+
+		completeCount = completeCount - len(splitKey)
+
+		for _, v := range v.AllKeys() {
+			split := strings.Split(v, ".")
+			if len(split) >= completeCount {
+				outerKeys = append(outerKeys, key+strings.Join(split[0:completeCount], "."))
+			}
+		}
+	} else {
+		for _, v := range viper.AllKeys() {
+			split := strings.Split(v, ".")
+			if len(split) >= completeCount {
+				outerKeys = append(outerKeys, strings.Join(split[0:completeCount], "."))
+			}
 		}
 	}
 
