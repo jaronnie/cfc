@@ -100,32 +100,18 @@ func ValidArgsFunction(cmd *cobra.Command, args []string, toComplete string) ([]
 }
 
 func getOuterKeys(key string) []string {
-	var subViper *viper.Viper
-
 	outerKeys := make([]string, 0)
-	if key != "" {
-		subViper = viper.Sub(strings.TrimRight(key, "."))
-		if key != "" && !strings.HasSuffix(key, ".") {
-			return nil
-		}
-	} else {
-		subViper = viper.GetViper()
 
+	completeCount := len(strings.Split(key, "."))
+	if completeCount == 0 {
+		completeCount = 1
 	}
 
-	if subViper == nil {
-		return nil
-	}
-
-	for _, v := range subViper.AllKeys() {
+	for _, v := range viper.AllKeys() {
 		split := strings.Split(v, ".")
-
-		if len(split) > 0 {
-			outerKeys = append(outerKeys, key+split[0])
-		} else {
-			outerKeys = append(outerKeys, v)
+		if len(split) >= completeCount {
+			outerKeys = append(outerKeys, strings.Join(split[0:completeCount], "."))
 		}
-
 	}
 
 	cobra.CompDebugln(strings.Join(outerKeys, ","), true)

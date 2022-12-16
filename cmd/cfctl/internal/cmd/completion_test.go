@@ -17,6 +17,6 @@ func TestGetOuterKeys(t *testing.T) {
 		return
 	}
 
-	keys := getOuterKeys("spec.")
+	keys := getOuterKeys("spec.sp")
 	fmt.Println(keys)
 }
