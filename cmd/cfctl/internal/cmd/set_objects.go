@@ -21,10 +21,11 @@ var (
 
 // setObjectsCmd represents the set_object command
 var setObjectsCmd = &cobra.Command{
-	Use:   "set_objects",
-	Short: "set_objects config key with object array type",
-	Long:  `set_objects config key with object array type.`,
-	RunE:  setObjects,
+	Use:               "set_objects",
+	Short:             "set_objects config key with object array type",
+	Long:              `set_objects config key with object array type.`,
+	ValidArgsFunction: ValidArgsFunction,
+	RunE:              setObjects,
 }
 
 func setObjects(cmd *cobra.Command, args []string) error {

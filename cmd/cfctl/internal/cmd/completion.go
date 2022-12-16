@@ -7,8 +7,10 @@ package cmd
 
 import (
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var completionCmd = &cobra.Command{
@@ -60,6 +62,36 @@ $ cfctl completion fish > ~/.config/fish/completions/cfctl.fish
 			_ = cmd.Root().GenPowerShellCompletion(os.Stdout)
 		}
 	},
+}
+
+func ValidArgsFunction(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+	err := tryReadConfig()
+	if err != nil {
+		return nil, cobra.ShellCompDirectiveDefault
+	}
+
+	keys := viper.AllKeys()
+
+	cobra.CompDebugln(strings.Join(keys, ","), true)
+
+	choiceKeys := make([]string, 0)
+
+	switch cmd.Name() {
+	case "set_string":
+		for _, b := range keys {
+			if _, ok := viper.Get(b).(string); ok {
+				choiceKeys = append(choiceKeys, b)
+			}
+		}
+	case "set_int":
+		for _, b := range keys {
+			if _, ok := viper.Get(b).(int); ok {
+				choiceKeys = append(choiceKeys, b)
+			}
+		}
+	}
+
+	return choiceKeys, cobra.ShellCompDirectiveDefault
 }
 
 func init() {

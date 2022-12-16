@@ -19,10 +19,11 @@ var (
 
 // setFloatCmd represents the set_float command
 var setFloatCmd = &cobra.Command{
-	Use:   "set_float",
-	Short: "set_float config key with float type",
-	Long:  `set_float config key with float type.`,
-	RunE:  setFloat,
+	Use:               "set_float",
+	Short:             "set_float config key with float type",
+	Long:              `set_float config key with float type.`,
+	ValidArgsFunction: ValidArgsFunction,
+	RunE:              setFloat,
 }
 
 func setFloat(cmd *cobra.Command, args []string) error {

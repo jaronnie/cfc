@@ -12,10 +12,11 @@ import (
 
 // delCmd represents the del command
 var delCmd = &cobra.Command{
-	Use:   "del",
-	Short: "del config key",
-	Long:  `del config key.`,
-	RunE:  del,
+	Use:               "del",
+	Short:             "del config key",
+	Long:              `del config key.`,
+	ValidArgsFunction: ValidArgsFunction,
+	RunE:              del,
 }
 
 func del(cmd *cobra.Command, args []string) error {

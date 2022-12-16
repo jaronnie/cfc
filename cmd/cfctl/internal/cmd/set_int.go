@@ -19,10 +19,11 @@ var (
 
 // setIntCmd represents the set_int command
 var setIntCmd = &cobra.Command{
-	Use:   "set_int",
-	Short: "set_int config key with int type",
-	Long:  `set_int config key with int type.`,
-	RunE:  setInt,
+	Use:               "set_int",
+	Short:             "set_int config key with int type",
+	Long:              `set_int config key with int type.`,
+	ValidArgsFunction: ValidArgsFunction,
+	RunE:              setInt,
 }
 
 func setInt(cmd *cobra.Command, args []string) error {

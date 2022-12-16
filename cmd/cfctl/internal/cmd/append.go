@@ -14,10 +14,11 @@ import (
 
 // appendCmd represents the append command
 var appendCmd = &cobra.Command{
-	Use:   "append",
-	Short: "append config key, the key value must by array",
-	Long:  `append config key, the key value must by array.`,
-	RunE:  appendEx,
+	Use:               "append",
+	Short:             "append config key, the key value must by array",
+	Long:              `append config key, the key value must by array.`,
+	ValidArgsFunction: ValidArgsFunction,
+	RunE:              appendEx,
 }
 
 func appendEx(cmd *cobra.Command, args []string) error {

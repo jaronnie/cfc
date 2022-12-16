@@ -20,10 +20,11 @@ var (
 
 // setStringsCmd represents the set_strings command
 var setStringsCmd = &cobra.Command{
-	Use:   "set_strings",
-	Short: "set_strings config key with string array type",
-	Long:  `set_strings config key with string array type.`,
-	RunE:  setStrings,
+	Use:               "set_strings",
+	Short:             "set_strings config key with string array type",
+	Long:              `set_strings config key with string array type.`,
+	ValidArgsFunction: ValidArgsFunction,
+	RunE:              setStrings,
 }
 
 func setStrings(cmd *cobra.Command, args []string) error {

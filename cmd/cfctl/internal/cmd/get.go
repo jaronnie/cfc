@@ -31,10 +31,12 @@ var (
 
 // getCmd represents the get command
 var getCmd = &cobra.Command{
-	Use:   "get",
-	Short: "get config key returns value",
-	Long:  `get config key returns value.`,
-	RunE:  get,
+	Use:               "get",
+	Short:             "get config key returns value",
+	Long:              `get config key returns value.`,
+	Args:              cobra.ExactValidArgs(1),
+	ValidArgsFunction: ValidArgsFunction,
+	RunE:              get,
 }
 
 func get(cmd *cobra.Command, args []string) error {

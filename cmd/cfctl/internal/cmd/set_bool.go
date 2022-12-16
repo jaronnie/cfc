@@ -19,10 +19,11 @@ var (
 
 // setBoolCmd represents the set_bool command
 var setBoolCmd = &cobra.Command{
-	Use:   "set_bool",
-	Short: "set_bool config key with bool type",
-	Long:  `set_bool config key with bool type.`,
-	RunE:  setBool,
+	Use:               "set_bool",
+	Short:             "set_bool config key with bool type",
+	Long:              `set_bool config key with bool type.`,
+	ValidArgsFunction: ValidArgsFunction,
+	RunE:              setBool,
 }
 
 func setBool(cmd *cobra.Command, args []string) error {

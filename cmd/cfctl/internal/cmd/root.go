@@ -51,6 +51,9 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.PersistentFlags().StringVarP(&ConfigFile, "config", "f", "", "config file path")
 	rootCmd.PersistentFlags().StringVarP(&FileType, "type", "p", "", "specify config file type")
+
+	_ = rootCmd.MarkPersistentFlagFilename("config", viper.SupportedExts...)
+
 }
 
 func tryReadConfig() (err error) {
