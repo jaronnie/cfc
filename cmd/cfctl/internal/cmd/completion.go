@@ -11,6 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/jaronnie/cfc/cmd/cfctl/internal/utilx"
 )
 
 var completionCmd = &cobra.Command{
@@ -89,9 +91,46 @@ func ValidArgsFunction(cmd *cobra.Command, args []string, toComplete string) ([]
 				choiceKeys = append(choiceKeys, b)
 			}
 		}
+	default:
+		cobra.CompDebugln(toComplete, true)
+		choiceKeys = getOuterKeys(toComplete)
 	}
 
-	return choiceKeys, cobra.ShellCompDirectiveDefault
+	return choiceKeys, cobra.ShellCompDirectiveNoSpace
+}
+
+func getOuterKeys(key string) []string {
+	var subViper *viper.Viper
+
+	outerKeys := make([]string, 0)
+	if key != "" {
+		subViper = viper.Sub(strings.TrimRight(key, "."))
+		if key != "" && !strings.HasSuffix(key, ".") {
+			return nil
+		}
+	} else {
+		subViper = viper.GetViper()
+
+	}
+
+	if subViper == nil {
+		return nil
+	}
+
+	for _, v := range subViper.AllKeys() {
+		split := strings.Split(v, ".")
+
+		if len(split) > 0 {
+			outerKeys = append(outerKeys, key+split[0])
+		} else {
+			outerKeys = append(outerKeys, v)
+		}
+
+	}
+
+	cobra.CompDebugln(strings.Join(outerKeys, ","), true)
+
+	return utilx.RemoveDuplicateElement(outerKeys)
 }
 
 func init() {
