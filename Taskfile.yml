@@ -1,0 +1,11 @@
+version: "3"
+
+tasks:
+  install:
+    cmds:
+      - go install github.com/jaronnie/cfc/cmd/cfctl
+    silent: true
+  fmt:
+    cmds:
+      - sh scripts/goimports.sh {{ if empty .CLI_ARGS }}all{{ else }}git{{ end }}
+    silent: true
