@@ -125,13 +125,11 @@ func getOuterKeys(key string) []string {
 	} else {
 		for _, v := range viper.AllKeys() {
 			split := strings.Split(v, ".")
-			if len(split) >= completeCount {
+			if len(split) >= completeCount && strings.Contains(v, key) {
 				outerKeys = append(outerKeys, strings.Join(split[0:completeCount], "."))
 			}
 		}
 	}
-
-	cobra.CompDebugln(strings.Join(outerKeys, ","), true)
 
 	return utilx.RemoveDuplicateElement(outerKeys)
 }

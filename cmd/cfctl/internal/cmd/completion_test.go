@@ -8,7 +8,7 @@ import (
 )
 
 func TestGetOuterKeys(t *testing.T) {
-	viper.SetConfigFile("/Users/jaronnie/Desktop/jaronnie/git.hyperchain.cn/blocface/bricklayer/_example/brick/console/chain/hyperchain_rbft_k8s.yaml")
+	viper.SetConfigFile("../testdata/hyperchain_rbft_k8s.yaml")
 
 	err := viper.ReadInConfig()
 
@@ -17,6 +17,21 @@ func TestGetOuterKeys(t *testing.T) {
 		return
 	}
 
-	keys := getOuterKeys("spec.template.alliancechaininfo.machines.0.nodes")
-	fmt.Println(keys)
+	keys := getOuterKeys("")
+	t.Log(keys)
+
+	keys = getOuterKeys("s")
+	t.Log(keys)
+
+	keys = getOuterKeys("spec")
+	t.Log(keys)
+
+	keys = getOuterKeys("spec.te")
+	t.Log(keys)
+
+	keys = getOuterKeys("spec.so")
+	t.Log(keys)
+
+	keys = getOuterKeys("spec.p")
+	t.Log(keys)
 }

@@ -1,0 +1,39 @@
+kind: HPC_PRO_v3_3_28
+kindVersion: v2
+metadata:
+    name: HPC_PRO_v3_3_28_001
+spec:
+  source:
+    token: jaronnie
+  template:
+    AllianceChainInfo:
+      ChainVersion: Hyperchain-v2.0.11
+      ConsMechanism: RBFT
+      Machines:
+        - ID: K8S_Machine_v3_0_23_001
+          Nodes:
+            - NodeType: "VP"
+        - ID: K8S_Machine_v3_0_23_002
+          Nodes:
+            - NodeType: "VP"
+        - ID: K8S_Machine_v3_0_23_003
+          Nodes:
+            - NodeType: "VP"
+        - ID: K8S_Machine_v3_0_23_004
+          Nodes:
+            - NodeType: "VP"
+---
+kind: Brush
+metadata:
+  name: start_chain
+brickRef:
+  kind: HPC_PRO_v3_3_28
+  name: HPC_PRO_v3_3_28_001
+spec:
+  mode: once # once,
+  conditions:
+#    - calculates:
+#      - "{{ .properties.phaseMessage | deepEqual '正在组网中，需盟主手动点击【启动】，进行部署联盟链操作' }}"
+    - phases:
+        - "STOPPED"
+  action: startChain
